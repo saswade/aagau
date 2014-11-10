@@ -110,6 +110,7 @@ public class Trie implements TypeAhead {
                     trieIndex.remove(character);
                 }
             } else {
+                //very unlikely. Invertigate why flow came here if it does
                 log.error("Could not find node for char %s while removing token %s",
                         character, token);
                 return false;
