@@ -16,6 +16,7 @@
     <modules>
         <module>trie</module>
         <module>core</module>
+        <module>web</module>
     </modules>
 
     <dependencies>

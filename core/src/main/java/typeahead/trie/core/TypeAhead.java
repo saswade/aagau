@@ -10,7 +10,7 @@ public interface TypeAhead {
      * Added given string token in to the typeahead lookup
      * @param token
      */
-    void put (String token);
+    boolean add(String token);
 
     /**
      * Returns matching strings from the lookup

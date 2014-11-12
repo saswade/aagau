@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created by abhay on 11/8/14.
  */
-@Component
+@Component (value = "trieImpl")
 public class Trie implements TypeAhead {
     private static final Logger log = LoggerFactory.getLogger(TypeAhead.class);
 
@@ -42,13 +42,13 @@ public class Trie implements TypeAhead {
     }
 
     @Override
-    public void put(String token) {
-        if (StringUtils.isBlank(token)) return;
+    public boolean add(String token) {
+        if (StringUtils.isBlank(token)) return false;
 
         token = token.trim();
         if (ignoreCase) token = token.toLowerCase();
 
-        if (tokens.contains(token)) return;
+        if (tokens.contains(token)) return false;
 
         Map<String, Node> trieIndex = rootMap;
         for (int i = 0; i < token.length(); i++) {
@@ -64,6 +64,7 @@ public class Trie implements TypeAhead {
         }
 
         tokens.add(token);
+        return true;
     }
 
     @Override

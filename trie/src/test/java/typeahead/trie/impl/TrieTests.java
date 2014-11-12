@@ -37,7 +37,7 @@ public class TrieTests {
     @Before
     public void init() {
         for (String name : names) {
-            trie.put(name);
+            trie.add(name);
         }
     }
 
@@ -71,7 +71,7 @@ public class TrieTests {
     @Test
     public void removeTest() {
         final String toDel = "del";
-        trie.put(toDel);
+        trie.add(toDel);
         boolean removed = trie.remove(toDel);
         assertTrue("Cannot remove "+ toDel +" from trie", removed);
 
