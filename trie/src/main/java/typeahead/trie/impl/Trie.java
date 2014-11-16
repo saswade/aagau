@@ -21,8 +21,14 @@ public class Trie implements TypeAhead {
 
     private Set<String> tokens;
 
-    @Value("${ignoreCase:true}")
+    @Value("${ignoreCase: true}")
     private boolean ignoreCase;
+
+    @Value("${enforceMaxTokenLength: false}")
+    private boolean enforceMaxTokenLength;
+
+    @Value("${maxTokenLength: 50}")
+    private int maxTokenLength;
 
     //Stores trieIndex
     private Map<String, Node> rootMap;
@@ -46,6 +52,9 @@ public class Trie implements TypeAhead {
         if (StringUtils.isBlank(token)) return false;
 
         token = token.trim();
+        if (enforceMaxTokenLength &&
+                token.length() > maxTokenLength) return false;
+
         if (ignoreCase) token = token.toLowerCase();
 
         if (tokens.contains(token)) return false;
@@ -160,4 +169,18 @@ public class Trie implements TypeAhead {
             return nodeMap;
         }
     }
+
+    void setIgnoreCase(boolean ignoreCase) {
+        this.ignoreCase = ignoreCase;
+    }
+
+    void setEnforceMaxTokenLength(boolean enforceMaxTokenLength) {
+        this.enforceMaxTokenLength = enforceMaxTokenLength;
+    }
+
+    void setMaxTokenLength(int maxTokenLength) {
+        this.maxTokenLength = maxTokenLength;
+    }
+
+
 }

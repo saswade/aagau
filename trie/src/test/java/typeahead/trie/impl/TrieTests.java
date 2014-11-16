@@ -62,10 +62,29 @@ public class TrieTests {
         assertTrue("Expecting only 2 names but got "+ typeAheadNames.size(),
                 typeAheadNames.size() == 2);
 
+        Trie trieImpl = (Trie) trie;
         //Check case insensitiveness
-        typeAheadNames = trie.get("RA");
+        trieImpl.setIgnoreCase(true);
+        trie.add("UPPERCASE");
+        typeAheadNames = trie.get("uPpEr");
         assertTrue ("Error typeAhead is case sensitive",
-                typeAheadNames.size() == 2);
+                typeAheadNames.size() == 1);
+
+        //test case sensitiveness
+        trieImpl.setIgnoreCase(false);
+        trie.add("MIXCase");
+        typeAheadNames = trie.get("mixcase");
+        assertTrue ("Error typeAhead suppose to be not case sensitive now",
+                typeAheadNames == null || typeAheadNames.size() == 0);
+        trie.remove("MIXCase");
+        trieImpl.setIgnoreCase(true);
+
+        //test length enforcement
+        trieImpl.setEnforceMaxTokenLength(true);
+        trieImpl.setMaxTokenLength(4);
+        boolean added = trie.add("123456");
+        assertTrue ("Length Enforcement did not work!",
+                !added);
     }
 
     @Test
